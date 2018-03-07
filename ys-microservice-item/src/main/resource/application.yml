@@ -1,7 +1,6 @@
 server:
   port: 8081
 
-
 spring:
   application:
     name: ys-microservice-item #指定服务名

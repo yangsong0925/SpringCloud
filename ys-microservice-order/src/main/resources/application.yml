@@ -16,6 +16,6 @@ eureka:
     serviceUrl: #Eureka客户端与Eureka服务端进行交互的地址
       defaultZone: http://ys:ys123@127.0.0.1:6868/eureka/
 
-ys-microservice-item:
+ys-microservice-item: #负载均衡
   ribbon:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
