@@ -3,7 +3,7 @@ server:
 ys:
   item:
     url: http://127.0.0.1:8081/item/
-    serviceId: ys-microservice-item
+    serviceId: ys-microservice-order
 
 spring:
   application:
@@ -15,3 +15,7 @@ eureka:
     fetchRegistry: true #是否从Eureka中获取注册信息，默认为true
     serviceUrl: #Eureka客户端与Eureka服务端进行交互的地址
       defaultZone: http://ys:ys123@127.0.0.1:6868/eureka/
+
+ys-microservice-item:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
