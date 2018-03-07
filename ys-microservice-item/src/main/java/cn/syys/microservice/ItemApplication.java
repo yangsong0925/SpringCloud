@@ -12,6 +12,7 @@ package cn.syys.microservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -21,6 +22,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @create 2018/3/6
  * @since 1.0.0
  */
+@EnableDiscoveryClient
 @SpringBootApplication
 public class ItemApplication {
 

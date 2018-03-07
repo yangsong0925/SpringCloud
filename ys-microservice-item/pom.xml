@@ -16,10 +16,28 @@
   <name>ys-microservice-item</name>
   <url>http://maven.apache.org</url>
 
+  <!-- 导入Spring Cloud的依赖管理 -->
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>Dalston.SR3</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <!-- 导入Eureka服务的依赖 -->
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-eureka-server</artifactId>
     </dependency>
   </dependencies>
 
@@ -50,5 +68,4 @@
       </plugin>
     </plugins>
   </build>
-
 </project>

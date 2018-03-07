@@ -13,8 +13,13 @@ package cn.syys.microservice.order.service;
 import cn.syys.microservice.order.pojo.Item;
 import cn.syys.microservice.order.properties.OrderProerties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -27,16 +32,25 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class ItemService {
 
-    @Autowired
+    @Autowired  // Spring框架对RESTful方式的http请求做了封装，来简化操作
     private RestTemplate restTemplate;
     @Autowired
     private OrderProerties orderProerties;
-//    @Value("${ys.item.url}")
-//    public String ysItemUrl;
+    @Value("${ys.item.url}")
+    private String ysItemUrl;
+    @Autowired
+    private DiscoveryClient discoveryClient;
 
     public Item queryItemById(Long itemId){
 //        return this.restTemplate.getForObject(ysItemUrl+itemId,Item.class);
-        return this.restTemplate.getForObject(orderProerties.getItem().getUrl()+itemId,Item.class);
+//        return this.restTemplate.getForObject(orderProerties.getItem().getUrl()+itemId,Item.class);
+        String serviceId = orderProerties.getItem().getServiceId();
+        List<ServiceInstance> instances = this.discoveryClient.getInstances(serviceId);
+        if(instances.isEmpty())
+            return null;
+        ServiceInstance serviceInstance = instances.get(0);
+        String url = serviceInstance.getHost()+":"+serviceInstance.getPort();
+        return restTemplate.getForObject("http://" + url + "/item/" +itemId,Item.class);
     }
 
 }
